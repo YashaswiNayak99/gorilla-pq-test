@@ -1,3 +1,4 @@
+// database connection
 package utils
 
 import (
@@ -21,9 +22,11 @@ func GetConnection() *sqlx.DB {
 		host, port, user, password, dbname)
 
 	db, err := sqlx.Open("postgres", psqlInfo)
+
 	if err != nil {
 		panic(err)
 	}
+
 	log.Println("DB Connection established...")
 	return db
 }

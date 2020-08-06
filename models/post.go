@@ -1,3 +1,4 @@
+// Post model
 package models
 
 type Post struct {

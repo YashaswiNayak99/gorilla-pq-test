@@ -2,7 +2,7 @@ package services
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 	"database/sql"
 	"github.com/jmoiron/sqlx"
 	"net/http"
@@ -33,7 +33,7 @@ func GetAllPosts(w http.ResponseWriter, r *http.Request) {
 		switch err {
 		case sql.ErrNoRows:
 			{
-				fmt.Println("No rows returned.")
+				log.Println("No rows returned.")
 				http.Error(w, err.Error(), 204)
 			}
 		case nil:
@@ -61,7 +61,7 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	switch err := row.StructScan(&searchpost); err {
 	case sql.ErrNoRows:
 		{
-			fmt.Println("No rows returned.")
+			log.Println("No rows returned.")
 			http.Error(w, err.Error(), 204)
 		}
 	case nil:
@@ -88,7 +88,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	post.ID = id
-	fmt.Println("New record ID is:", id)
+	log.Println("New record ID is:", id)
 	json.NewEncoder(w).Encode(&post)
 }
 
@@ -108,7 +108,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("Updated record ID is:", id)
+	log.Println("Updated record ID is:", id)
 	json.NewEncoder(w).Encode(&post)
 }
 
@@ -122,7 +122,7 @@ func DeletePost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 400)
 		return
 	}
-	fmt.Println("Deleted record ID is:", id)
+	log.Println("Deleted record ID is:", id)
 	json.NewEncoder(w).Encode(id)
 }
 
